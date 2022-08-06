@@ -1,0 +1,85 @@
+***********TÌM HIỂU VỀ $SCOPE VÀ $ROOTSCOPE**************
+>>>> $SCOPE:
+  - $SCOPE là một đối tượng có nhiệm vụ giao tiếp giouwax controller và view, $scope chứa thông tin là các
+  dữ liệu model, bao gồm các thuộc tính và phương thức. Trong controller dữ liệu model đc truy cập thông quá
+  $scope.
+  ---> bản chất:   ứng dụng angular bao gồm
+    + view->lớp code html
+    + model--> là các dữ liệu ứng dụng trên view
+    + controller-> là các hàm js dùng tạo/xóa/thêm và điều khiển dữ liệu model trên view.
+
+>>>>>$ROOTSCOPE
+
+ - $rootscope là một biến tổng quát bao gồm toàn bộ các controller của ứng dụng và truy xuất đc nhiều controller khác
+ nhau, tất cả các ứng dụng đều có một $rootscope. Nó được khải báo trên phần tử HTML bởi ng-app.
+ - $rootscope thì có thể share các dữ liệu của các controller qua lại với nhau.
+
+
+
+
+ ---> ví dụ code:
+        ***tạo js: 
+                  // tìm hiểu về $scope và $rootscope
+
+            var myApp = angular.module('mymodule', []); // tạo model lk với html thông quan ng-app
+
+            myApp.controller('myController', function($scope){
+                $scope.name='tran huu phuc';
+                $scope.click=function(){
+                    $scope.name= $scope.name + 'alo 123';
+                }
+            })
+
+
+            // tạo rootscope một biến tổng quát chứa nhiều controller và có thể đc share dữ liệu controller với nhau
+
+            myApp.controller('myController01', myController01);
+            myApp.controller('myController02', myController02);
+
+
+            function myController01($scope, $rootScope){
+                $rootScope.name='day la vi du ve rootScope';
+            };
+
+            /* ta có thể tạo nhiều controller nhưng chỉ cần khai báo value cần view một lần ở một controller đầu thui
+            thì các controller sau vẫn có thể share dữ liệu cùng một value đều đc nhờ vào biến $rootscope.
+            */
+            function myController02($scope, $rootScope){
+              // không cần khai báo value cotroller 02 vẫn ghi nhận value của controller 1 nhờ rootscope
+            };
+
+  ***code html:
+
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <script src="../lib/angularjs.min.js"></script>
+              <script src="../js/b02_$scope_$rootscope.js"></script>
+              <title>tìm hiểu về $scope và $rootscope</title>
+          </head>
+          <body ng-app="mymodule">
+
+              <!--phần $scope-->
+              <div ng-controller="myController">
+                  ten: <input type="text" ng-model="name">
+                  <button ng-click="click()">ấn vào</button>
+                  <div>{{name}}</div>
+              </div>
+
+              <!--phần $rootscope-->
+              <div ng-controller="myController01">
+                  <div>{{name}}</div>
+              </div>
+              <div ng-controller="myController02">
+                  <div>
+                      {{name}}
+                  </div>
+              </div>
+
+
+              <!--các khai báo scope lồng nhau, một controller tổng bao quát và value nó sẽ hiển thị chung có các controller con-->
+              
+          </body>
+          </html>

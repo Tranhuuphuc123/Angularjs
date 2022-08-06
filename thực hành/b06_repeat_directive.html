@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../lib/angularjs.min.js"></script>
+    <script src="../js/b06_repeat_directive.js"></script>
+    <title>Luyện tập với repeat directive</title>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myController">
+        <table padding="1" cellpadding="1" border="1">
+            <thead>
+                <tr>
+                    <td>firstName</td>
+                    <td>lastName</td>
+                    <td>gender</td>
+                    <td>zipCode</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employees in employees">
+                    <td>{{employees.firstName}}</td>
+                    <td>{{employees.lastName}}</td>
+                    <td>{{employees.gender}}</td>
+                    <td>{{employees.zipCode}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!--nested repeat directive lồng nhau-->
+</body>
+</html>

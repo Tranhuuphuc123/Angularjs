@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../lib/angularjs.min.js"></script>
+    <script src="../js/b07_ng-click.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ta sẽ luyện tập với ng-click khi bắt sự kiện trong controller với repeat directives</title>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myController">
+        <table>
+            <tr>
+                <td>name</td>
+                <td>like</td>
+                <td>disklike</td>
+                <td>action</td>
+            </tr>
+            <tr ng-repeat="technologies in technologies">
+                <td>{{technologies.name}}</td>
+                <td>{{technologies.like}}</td>
+                <td>{{technologies.disklike}}</td>
+                <td>
+                    <button ng-click="increaselike(technologies)">like</button>
+                    <button ng-click="increasedisklike(technologies)">disklike</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

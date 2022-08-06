@@ -1,0 +1,134 @@
+***SỬ DỤNG FILTER TRON GANGUALARJS******
+
+>> khái niệm:
+  - Filter là gì? Filter là 1 trong các component quan trọng của Angularjs. Filter giúp chuyển đổi dữ liệu 
+  trước khi dữ liệu đó được các Directive xử lý và được hiển thị trên view. Vì vậy Filter giúp có thể hiển
+  thị nhiều cách khác nhau trên cùng 1 kiểu dữ liệu.
+
+  - Các filter thông dụng:
+    + currency:  định dạng kiểu số thành tiền tệ.
+    + date: định dạng ngày tháng theo định dạng đã cho
+    + filter: trả về tập con từ mãng dữ liệu
+    + json: định dạng đối tượng hành json
+    + limitTo: giới hạn chuỗi/mảng thành một phần tử. ký tự đã cho
+    + lowercase: chuyển đổi sang chữ thường
+    + number: chuyển đổi sáng số.
+    + orderBy sắp xếp mảng theo thứ tự
+    + uppercase: chuyển đổi sang chữ hoa
+
+
+    ---> để định dạng filer đó ta cần thêm filter đó vào biểu thức với cú pháp:
+       {{myString | filter}}
+         + vd:
+               name:phúc chuyển thành PHÚC -> {{phúc | uppercase}}
+               tiền: 200 thành 200$-> {{200 | currency}}
+
+
+>>> Filter tự đính nghĩa.
+  - cấu trúc:
+      + tạo module
+       var myApp = angular.module('myApp', []);
+
+      + xây dựng filter tự định nghĩa:
+
+        myApp.filter('ten_fielter',function(){
+          return function(input){
+              return input? "kích hoạt":"khóa";
+          });
+      
+
+
+
+
+****THỰC HÀNH VÀ VÍ DỤ:
+
+>> sau đây là code ví dụ về chuyển đổi filter kết hợp với  ng-repeat Directive và controller trong json
+    + js:
+        
+          var myApp =angular.module('myModule', []);
+
+          myApp.controller('filterController',['$scope', function($scope){
+              var informations =[
+                  {name: 'tuấn', birthDate: '22/09/2022', salary:4500000, gender:'MALE'},
+                  {name: 'tuấn', birthDate: '01/09/2022', salary:4500000, gender:'MALE'},
+                  {name: 'tuấn', birthDate: '05/23/2022', salary:4500000, gender:'MALE'},
+                  {name: 'tuấn', birthDate: '02/19/2022', salary:4500000, gender:'MALE'},
+                  {name: 'tuấn', birthDate: '22/2022/09', salary:4500000, gender:'MALE'}
+                  
+              ];
+              $scope.informations=informations;
+
+              // chức năng limitTo giới hạn sự xuất hiện và view hiển thị của thành phần mảng repeat directive
+              $scope.limitRow=3;
+          }]);
+
+
+
+    + html:
+        
+               <body ng-app="myModule">
+              <div ng-controller="filterController">
+                  show: <input type="number" ng-model="limitRow">
+                  <table class="table" >
+                      <tr>
+                          <td>name:</td>
+                          <td>date of birth</td>
+                          <td>salary</td>
+                          <td>Gender</td>
+                      </tr>
+                      <tr ng-repeat="information in informations | limitTo:limitRow">
+                          <td>{{information.name | uppercase}}</td>
+                          <td>{{information.birthDate | date:"dd/MM/yyyy"}}</td>
+                          <td>{{information.salary | currency:"$"}}</td>
+                          <td>{{information.gender | lowercase}}</td>
+                      </tr>
+                  </table>
+              </div>    
+          </body>
+
+---> đây là cách sử dụng các filter có sẵn kết hợp với repeat directive trong controller với bài tập tạo bảng
+thông tin.
+
+
+
+>>> XÂY DỰNG FILTER TỰ ĐỊNH NGHĨA:
+
+    +js:
+       // xây dựng filter tự định nghĩa
+
+            myApp.filter('myFilter', function(){
+                return function(input){
+                    if(input==true)
+                        return 'kích hoạt';
+                    else  
+                        return 'khóa';
+                }
+            });
+
+
+    + trong html:
+
+        <body ng-app="myModule">
+              <div ng-controller="filterController">
+                  show: <input type="number" ng-model="limitRow">
+                  <table class="table" >
+                      <tr>
+                          <td>name:</td>
+                          <td>date of birth</td>
+                          <td>salary</td>
+                          <td>Gender</td>
+                          <!--chèn thêm cột filter tự định nghĩa-->
+                          <td>myFielter</td>
+                      </tr>
+                      <tr ng-repeat="information in informations | limitTo:limitRow">
+                          <td>{{information.name | uppercase}}</td>
+                          <td>{{information.birthDate | date:"dd/MM/yyyy"}}</td>
+                          <td>{{information.salary | currency:"$"}}</td>
+                          <td>{{information.gender | lowercase}}</td>
+                          <td>{{information.myFilter | myFilter}}</td>
+                      </tr>
+                  </table>
+              </div>
+              
+          </body>
+

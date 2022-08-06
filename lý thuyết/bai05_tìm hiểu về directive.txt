@@ -1,0 +1,70 @@
+******KIẾN THỨC TỔNG QUÁT VỀ DIRECTIVE**********
+>>Khái niệm:
+ - Directive là một thành phần tính năng của Angularjs, nó xấy dựng các thẻ mở rộng của html nhằm mục đích cụ
+thể do người dùng viết.
+- Các Directive của angularjs thường có tiền tố là ng-directive.
+
+>> các directive:
+ - loại Aplication:
+   + ng-app
+   + ng-controller
+
+ - loại forms:
+   + ng-list
+   + ng-option
+   + ng-submit
+   ...(tự tìm hiểu thêm)
+
+ - loại template:
+   + ng-if
+   + ng-view
+   + ng-repeat
+   .....
+
+ - loại Operation:
+   + ng-click
+   + ng- change
+   + ng- checked
+   ...
+
+- loại binding( phần mở rộng controller)
+  + ng-model
+  + ng-init
+  + ng-style
+  ...
+
+
+>>> 3 directive chính thường dùng (hay gọi là directive có sẵn)
+
+ - ng-app: khởi tạo lk angularjs vs hmtl
+ - ng-init: khởi tạo ựng dụng giống contructor trong OOP
+ - ng-model: gắn kết dữ liệu giữa các đối tượng trong html( input, select, textarea....)
+
+ >>> directive tự định nghĩa
+- cấu trúc:
+        var myApp=angular.module('demo', []);
+
+        myApp.controller('myController', function($scope){
+            }).directive('file_tu_dat', function(){
+                return{
+                    template: // nội dung
+                }
+            })
+
+
+    ===> khi gọi driective tự tạo ta khai báo như sau:
+     vd:
+      .file directive trong js là: vd ở trên: file_tu_dat
+         var myApp=angular.module('demo', []);
+
+        myApp.controller('myController', function($scope){
+            }).directive('huuPhuc', function(){
+                return{
+                    template: // nội dung
+                }
+            })
+
+     + trong html:
+         <div huu-Phuc>
+         
+         </div>

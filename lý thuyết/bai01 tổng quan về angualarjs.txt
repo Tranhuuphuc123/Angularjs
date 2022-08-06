@@ -1,0 +1,58 @@
+*****TỔNG QUAN VỀ ANGULARJS*******
+>>>Các tính năng code lõi của AngularJS.
+  - Sau đây là các tính năng cố lõi quan trọng trong AngularJS
+    + Data-binding: (liên kết dữ liệu) tự động đồng bộ dữ liệu giữa model và view
+    + Scope: (Phạm vi) Đây là những đối tượng kết nối giữa Controller và View
+    + Controller: Đây là những hàm javascript xử lý kết hợp với bộ điều khiển Scope
+    + Service: Như tôi đề cập ở trên, AngularJS sử dụng các API được xây dựng từ các web service (PHP, ASP)
+    để thao tác với DB.
+    + Filters: Bộ lọc lọc ra các thành phẩn của một mảng và trả về mảng mới
+    + Directives:  đánh dấu vào các yếu tố của DOM, nghĩa là sẽ tạo ra các thẻ HTML tùy chỉnh
+    + Templates: hiển thị thông tin từ controller, đây là một thành phần của views
+    + Routing:  chuyển đổi giữa các action trong controller
+    + MVC: Mô hình chia thành phần riêng biệt thành Model, View, Controller.
+     Đây là một mô hình khá hay nhưng trong Angular thì nó được chế biến lại một chút gần giốn với MVVM
+     (Model View View Model)
+    + Deep Linking: Liên kết sâu, cho phép bạn mã hóa trạng thái của ứng dụng  trong các URL  để nó có thể 
+    đánh dấu được với công cụ tìm kiếm.
+    + Dependency Injection: Angular giúp các nhà phát triển tạo ứng dụng dễ dàng hơn để phát triển, hiểu và
+     thử nghiệm dễ dàng.
+
+  - Các Components chính trong AngularJS:
+    Angular JS được chia làm ba thành phần chính sau đây:
+
+      ++ ng-app: định nghĩa này chỉ thị một kết nối ứng dụng Angular JS tới HTML
+
+        ---> Note: Trong một ứng dụng website thì ng-app đóng vai trò là một main module, nếu Angular nó nhận 
+        thấy ta khai báo ng-app ngay tại vị trí nào thì nó sẽ tự hiểu là tất cả các thẻ con bên trong sẽ sử
+        dụng AngularJS. Như trong ví dụ dưới đây ta khai báo ng-app ngay tại thẻ body, lúc này Angular sẽ 
+        biên dịch tất cả những đoạn code bên trong đó nếu có sử dụng cú pháp của Angular thì sẽ được thực thi.
+
+      ++ ng-model: chỉ thị này liên kết với dữ liệu của ứng dụng Angular
+      
+      ++ ng-bind: chỉ thị này dùng đưa dữ liệu vào HTML tags
+
+      ++ ng-controler: hàm js xủa lý kết hợp với bộ dk $Scope hiển thị view
+       --> Để khai báo ng-controller thì tương tự như ng-app chúng ta sẽ sử dụng cú pháp 
+       ng-controller="name_controller".
+        .....
+
+
+- ví dụ căn abnr về angular:
+   <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../lib/angularjs.min.js"></script>
+        <title>luyện tập cơ bản về angularjs</title>
+    </head>
+    <body ng-app>
+        input: <input type="text" ng-model="name"><br>
+        display: <div>{{name}}</div>
+    </body>
+    </html>
+
+     ---> trong đó, thì ng-app đóng vai trò lk angularjs với html, ng-model lk các thuộc tính trong angular với thẻ 
+     html tag.
+     ---> để truy cập giá trị expression(biểu thức đã xây dựng) ta bỏ tên biến cần view vào dấu {{}}

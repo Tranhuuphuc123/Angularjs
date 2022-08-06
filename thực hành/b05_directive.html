@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../lib/angularjs.min.js"></script>
+    <script src="../js/b05_directive.js"></script>
+    <title>Tìm hiểu về directive</title>
+</head>
+<body ng-app="demo">
+    <div ng-controller="myController" ng-init="name='vi du ve tao value voi init ngay trong html'">
+        <div>
+            {{name}}
+        </div>
+        <div>
+            {{name}}
+        </div>
+    </div>
+
+    <!--lôi directive tự tạo vào-->
+    <div ng-controler="myController1">
+        <div text-Directive></div>
+    </div>
+</body>
+</html>

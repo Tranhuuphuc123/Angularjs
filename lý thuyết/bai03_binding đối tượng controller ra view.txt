@@ -1,0 +1,59 @@
+******CONTROLLER NÂNG CAO VỚI BINDING****
+- Ràng buộc (binding) dữ liêu là phản ánh logic hoặc biến của một đối tượng trên view của ứng dụng.
+ Bất cứ khi nào có sự thay đổi thì view cũng phải cập nhật các DOM với các giá trị mới . Angular framwork có 
+ nhưng các ràng buộc dữ liệu mạnh mẽ như.
+
+-Trong Data Binding giúp thể hiện giá trị của DOM. mà điều thú vị ở đây là kết quả mà data bạn cập nhật sẽ
+ hiển thị ngay chứ không cần phải reload page tức là cách thức tự đồng bộ hóa (synchronization) dữ liệu giữa
+ model và view trong angularJS, nó cho phép bạn tạo sự liên kết ràng buộc giữa model và template thông qua
+angularJS
+
+
+
+>> ví dụ code
+   
+      // controller nâng cao với binding --->
+        /*  Ràng buộc (binding) dữ liêu là phản ánh logic hoặc biến của một đối tượng trên view của ứng dụng.
+        Bất cứ khi nào có sự thay đổi thì view cũng phải cập nhật các DOM với các giá trị mới . Angular framwork có 
+        nhưng các ràng buộc dữ liệu mạnh mẽ. */
+
+                myApp.controller("Huuphuc_4", function($scope){
+                    var tennv ={
+                        FirstName: 'Tran',
+                        LastName: 'Phuc',
+                        Gender: 'Male'
+                    }
+                    $scope.tennv =tennv;
+                })
+
+        // chèn code vào html
+           
+             <!DOCTYPE html>
+            <html ng-app="Huuphuc">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script src="../lib/angularjs.min.js"></script>
+                <script src="../js/controller.js"></script>
+                <title>controller nâng cao với bingding(sự ràng buộc giữa đố tượng và view hiển thị)</title>
+            </head>
+            <body ng-controller="Huuphuc_4">
+                <div>
+                        first name: <input type="text" ng-model="tennv.FirstName"><br/>
+                        last name: <input type="text" ng-model="tennv.LastName"><br/>
+                        gender: <input type="text" ng-model="tennv.Gender"><br/>
+                </div>
+
+                // đoạn dưới là cách 02, lv với biếu thức thông quá dấu {{}}
+                
+                <br/>
+                <br/>
+                <div>
+                    first name: {{tennv.FirstName}}<br/>
+                    last name: {{tennv.LastName}}<br/>
+                    gender: {{tennv.Gender}}<br/><br/>
+            </div>
+            </body>
+            </html>
+
+                    

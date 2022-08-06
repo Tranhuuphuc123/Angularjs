@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../lib/angularjs.min.js"></script>
+    <script src="../js/b04_$scope_$rootscope.js"></script>
+    <title>tìm hiểu về $scope và $rootscope</title>
+</head>
+<body ng-app="mymodule">
+
+    <!--phần $scope-->
+    <div ng-controller="myController">
+        ten: <input type="text" ng-model="name">
+        <button ng-click="click()">ấn vào</button>
+        <div>{{name}}</div>
+    </div>
+
+    <!--phần $rootscope-->
+    <div ng-controller="myController01">
+        <div>{{name}}</div>
+    </div>
+    <div ng-controller="myController02">
+        <div>
+            {{name}}
+        </div>
+    </div>
+
+
+    <!--các khai báo scope lồng nhau, một controller tổng bao quát và value nó sẽ hiển thị chung có các controller con-->
+    
+</body>
+</html>

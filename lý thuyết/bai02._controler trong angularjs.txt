@@ -1,0 +1,80 @@
+***************TÌM HIỂU VỀ CONTROLER TRONG ANGULARJS***********
+
+>> Module là gì:
+ - Module là một container (kiểu dữ liệu) cho các thành phần khác: controler, filters, services..... chính xác
+ hơn nó giống hàm main của các ngôn ngữ khác nơi chứa các nơi chứa các đoạn code,funtion, kiểu dữ liệu, biến....
+   + cấu trúc xây dựng module:
+        var myApp=angular.module("myModule", []);
+    hoặc
+         myApp = angular.module('myModule', []);
+
+       ++ trong đó : "myModule" đây là tên module mình có thể tự đặt.
+
+>> Controler trong Angularjs:
+  - trong Angularjs thì controler là một hàm javascript, tác dụng của nó là xây dựng lên model cho view hiển 
+  thị. Đây là những hàm javascript xử lý kết hợp với bộ điều khiển Scope
+
+     + Cách tạo một controller
+
+         myApp.controller("mycontroller",mycontroller);
+
+          ++ trong đó: "mycontroller" là tên do người dùng đặt
+
+
+>> ví dụ về xây dựng một controller kết hợp với module
+  Cách 01: 
+    // xây dựng module và controller nhúng vào html theo kiểu tường minh
+
+        // tạo module
+        var myApp = angular.module('Huuphuc', []);
+
+        // tạo một controller
+        myApp.controller ('Huuphuc_2',myController);
+
+        // xây dựng hàm huuphuc_2 để hiển thị nội dung cần view
+
+        function myController($scope){
+            // $cope dùng để lk controller và view
+            $scope.message='tập làm quen với anguller và controller';
+        }
+
+Cách 02:
+ // xây dựng module và controller nhúng vào html theo kiểu nặc danh tinh gọn
+
+        // tạo module
+           var myApp = angular.module('Huuphuc', []);
+
+        // tạo một controller vs function trong một cách khai báo
+            myApp.controller('Huuphuc_3', function($scope){
+              $scope.message="khai bao nặc danh  kiểu tinh gọn nha";
+          })
+
+
+
+======> nhúng vào html
+
+                <!DOCTYPE html>
+                <html ng-app="Huuphuc">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <script src="../lib/angularjs.min.js"></script>
+                    <!--thư viện tạo module và controller link vào html-->
+                    <script src="../js/controller.js"></script>
+                    <title>xây dựng module kết hợp module và controleler vào html- từ bài này trở đi sẽ
+                        viết file js riêng và nhùng vào html theo kiểu external
+                    </title>
+                </head>
+                <body>
+                    <div ng-controller="Huuphuc_2">
+                        {{message}}
+                    </div>
+                    <!--controller kiểu nạc danh tinh gọn-->
+                    <div ng-controller="Huuphuc_3">
+                        {{message}}
+                    </div>
+                </body>
+                </html>
+
+                  
+              

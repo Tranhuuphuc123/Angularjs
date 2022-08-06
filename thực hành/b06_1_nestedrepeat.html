@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../lib/angularjs.min.js"></script>
+    <script src="../js/b06_01_nestedrepeat.js"></script>
+    <title>Phần luyện tập về nested repeat directive lồng nhau vơi cách khai báo chuẩn ng-repeat trong direcitive 
+    với controller</title>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myController">
+        <ul>
+            <li ng-repeat="countries in countries">
+                {{countries.name}}
+                <ul>
+                    <li ng-repeat="cities in countries.cities">
+                        {{cities.name}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+*****PHẦN NÀY TA SẼ TÌM HIỂU VỀ BẮT SỰ KIỆN VỚI CLICK***
+- một bài tập minh hoa là tạo bảng với các thuộc tính khi click vào thuộc tính nó sẽ tăng hoặc giảm giá tri
+ta sử dụng với sự kiện lặp repeat directive và ng-click.
+
+
+ code:
+    +js:
+       // ta bắt sự kiện click với bảng table tăng giảm giá trị trong controller và ng-click
+
+            var myApp=angular.module('myApp', []);
+
+            myApp.controller('myController',['$scope', function($scope){
+                var technologies =[
+                    {name:'C#',like:0, disklike:0,},
+                    {name:'C#',like:0, disklike:0},
+                    {name:'C#',like:0, disklike:0},
+                    {name:'C#',like:0, disklike:0}
+                ];
+                $scope.technologies=technologies;
+                $scope.increaselike=function(technologies){
+                    technologies.like++;
+                }
+                $scope.increasedisklike=function(technologies){
+                    technologies.disklike++;
+                }
+            }])
+
+
+    + html:
+        <body ng-app="myApp">
+            <div ng-controller="myController">
+                <table>
+                    <tr>
+                        <td>name</td>
+                        <td>like</td>
+                        <td>disklike</td>
+                        <td>action</td>
+                    </tr>
+                    <tr ng-repeat="technologies in technologies">
+                        <td>{{technologies.name}}</td>
+                        <td>{{technologies.like}}</td>
+                        <td>{{technologies.disklike}}</td>
+                        <td>
+                            <button ng-click="increaselike(technologies)">like</button>
+                            <button ng-click="increasedisklike(technologies)">disklike</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </body>

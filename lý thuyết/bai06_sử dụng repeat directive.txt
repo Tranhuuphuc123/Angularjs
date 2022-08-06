@@ -1,0 +1,156 @@
+*****TÌM HIỂU VỀ REPEAT DIRECTIVE VS NG-REPEAT************
+
+>>> ng-repeat:lặp dữ liệu từ controller ra view
+  - cấu trúc khai báo:
+      + file js: khởi tạo bên js 
+         tên_controller.$inject=["$scope"];
+          function ten_controller($scope){
+              var tên_biến{
+                 nội dung
+              }
+              $scope.tên_biến = tên_biến;
+          }
+
+        or có thể viết:
+        (function(){
+                // khởi tạo bên js 
+                tên_controller.$inject=["$scope"];
+                function ten_controller($scope){
+                var tên_biến{
+                    nội dung
+                }
+                $scope.tên_biến = tên_biến;
+            }
+        });
+    
+
+
+    ===>NOTE!: cách viết tắt repeat directive vs controller
+      myApp.controller('myController',['$scope', function($scope){
+            // nội dung
+      }]);
+
+
+
+
+      + lôi vào html: ng-rpeat ="tên_biến in tên_biến"
+
+
+          vd:
+
+            + file js:
+                  ** ng-repeat trong controller
+
+                    var myApp =angular.module('myApp', []);
+
+                    myApp.controller('myController', myController);
+
+                    // khởi tạo repeat directive
+
+                    myController.$inject =['$scope'];
+
+
+                    // khởi tạo nội dung controller và repeat directive
+                    function myController($scope){
+                        var employees =[
+                            {firstName: 'Phuc', lastName:'Tran', gender:'male', zipCode:'0710'},
+                            {firstName: 'Phuc', lastName:'Tran', gender:'male', zipCode:'0710'},
+                            {firstName: 'Phuc', lastName:'Tran', gender:'male', zipCode:'0710'},
+                            {firstName: 'Phuc', lastName:'Tran', gender:'male', zipCode:'0710'}
+                        ]
+                        $scope.employees=employees;
+                    }
+
+             + trong html:
+                
+                        <body ng-app="myApp">
+                        <div ng-controller="myController">
+                            <table padding="1" cellpadding="0.1" border="1">
+                                <thead>
+                                    <tr>
+                                        <td>firstName</td>
+                                        <td>lastName</td>
+                                        <td>gender</td>
+                                        <td>zipCode</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="employees in employees">
+                                        <td>{{employees.firstName}}</td>
+                                        <td>{{employees.lastName}}</td>
+                                        <td>{{employees.gender}}</td>
+                                        <td>{{employees.zipCode}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+>>>nested ng-repeat(ng-repeat lồng nhau): ta truyền nhiều dữ liệu trong một dữ liệu thì cách khai báo sẽ như sau
+-->vd:
+
+
+                    (function(){
+                        var myApp=angular.module('myApp',[]);
+
+                        myApp.controller('myController',['$scope',function($scope){
+                            var countries =[
+                                {
+                                    name: 'UK',
+                                    cities :[
+                                        {name: 'london'},
+                                        {name: 'paris'},
+                                        {name:'tokyo'}
+                                    ]
+                                },
+                                {
+                                    name: 'UK',
+                                    cities :[
+                                        {name: 'london'},
+                                        {name: 'paris'},
+                                        {name:'tokyo'}
+                                    ]
+                                },
+                                {
+                                    name: 'UK',
+                                    cities :[
+                                        {name: 'london'},
+                                        {name: 'paris'},
+                                        {name:'tokyo'}
+                                    ]
+                                },
+                                {
+                                    name: 'UK',
+                                    cities :[
+                                        {name: 'london'},
+                                        {name: 'paris'},
+                                        {name:'tokyo'}
+                                    ]
+                                }
+                            ];
+                            $scope.countries=countries;
+                        }]);
+                    })();
+
+
+    + trong html:
+
+
+                    <body ng-app="myApp">
+                    <div ng-controller="myController">
+                        <ul>
+                            <li ng-repeat="countries in countries">
+                                {{countries.name}}
+                                <ul>
+                                    <li ng-repeat="cities in countries.cities">
+                                        {{cities.name}}
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </body>
+
+   

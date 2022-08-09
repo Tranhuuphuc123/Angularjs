@@ -38,7 +38,7 @@
         .....
 
 
-- ví dụ căn abnr về angular:
+- ví dụ căn bản về angular:
    <!DOCTYPE html>
     <html>
     <head>

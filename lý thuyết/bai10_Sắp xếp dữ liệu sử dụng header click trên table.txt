@@ -1,0 +1,121 @@
+********SẮP XẾP DỮ LIỆU SỬ DỤNG HEADER click TRÊN TABLE*******************
+- không cần hiển thị nút show rồi chọn đối tượng sắp xếp như cách trước ở bài này ta sẽ tùy chỉnh ngay thanh 
+header tiêu đề để sắp xếp ngay trên các thuộc tính của thanh header.( nghĩa là ta viết code bắt sự kiện khi nhấn 
+vào các mục trên header thì nó sẽ sắp xếp trong bài anyf ta tìm hiểu thêm 2 cmponent nữa là ng-click và ng-class
+bắt sự kiện trong angular vs view html)
+
+    + code js:
+       // luyện tập code orderBy sắp xếp dữ liệu với header click trên table
+
+
+            var myApp = angular.module('myApp', []);
+
+            myApp.controller('myController',['$scope', function($scope){
+                var employees =[
+                    {name:'Phúc', birthDate:  new Date('01/22/1995'), salary:50000000, gender:'male', myFilter:true},
+                    {name:'Tuấn', birthDate: new Date('10/03/197'), salary:30000000, gender:'male', myFilter:true},
+                    {name:'Phương', birthDate: new Date('05/10/1993'), salary:100000000, gender:'female', myFilter:false},
+                    {name:'Linh', birthDate: new Date('09/23/1996'), salary:200000, gender:'female', myFilter:false},
+                    {name:'Hào', birthDate: new Date('12/22/2004'), salary:7000000, gender:'male', myFilter:true},
+                ];
+                $scope.employees=employees;
+
+
+                // sắp xếp dữ liệu của thuộc tính orderBy
+                $scope.sapxepdulieu='name';
+                $scope.reserve=false;
+
+
+                // code định nghĩa bắt sự kiện ng-click
+
+                $scope.dataclick=function(column){
+                    if($scope.sapxepdulieu==column) //phg thức $scope liên kết giữa model html và biến trong controler
+                        {
+                            $scope.reserve= !$scope.reserve;// giá trị sẽ đảo lại khi nhấn nhầm tạo tính năng chuyển khi ấn 
+                        }  
+                    else{
+                        $scope.reserve=false;
+                    }
+                    $scope.sapxepdulieu=column;
+                }
+            
+
+                // code định nghĩa bắt sự kiện ng-class tạo thêm nút hiển thị với css html
+
+                $scope.dataclass=function(column){
+                    if($scope.sapxepdulieu==column){
+                        return $scope.reserve?'arow-up':'arow-down';
+                    }else{
+                        return '';
+                    }
+                }
+
+            }]);
+
+
+
+
+
+            // filter chuyển đổi dữ liệu tự định nghĩa
+
+            myApp.filter('myfil', function(){
+                return function(input){
+                    if(input==true)
+                            return 'kích hoạt';
+                    else
+                        return 'khóa';
+                }
+            })
+
+
+
++ chèn vào html:
+      // phần header
+                    <style>
+                    table thead tr{
+                    cursor:pointer;
+                    }
+                    /*This class displays the UP arrow*/
+                    .arow-up {
+                    width: 0;
+                    height: 0;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-bottom: 10px solid black;
+                    display: inline-block;
+                    }
+                
+                    /*This class displays the DOWN arrow*/
+                    .arow-down {
+                    width: 0;
+                    height: 0;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-top: 10px solid black;
+                    display: inline-block;
+                    }
+                </style>
+            </head>
+            <body ng-app="myApp">
+                <div ng-controller="myController">
+                    <table class="table">
+                        <!--ta khai báo các model truy bắt sự kiện với  tên biến của ng-click và ng-class đã khai báo bên js-->
+                        <thead style="background-color: rgb(109, 124, 206); font-weight: bold;">
+                            <td ng-click="dataclick('name')">Name <div ng-class="dataclass('name')"></div></td>
+                            <td ng-click="dataclick ('birthDate')">date of birth <div ng-class="dataclass('birthDate')"></div></td>
+                            <td ng-click="dataclick ('salary')">salary <div ng-class="dataclass('salary')"></div></td>
+                            <td ng-click="dataclick ('gender')">gender <div ng-class="dataclass('gender')"></div></td>
+                            <td ng-click="dataclick">myFilter</td>
+                        </thead>
+                        <tbody ng-repeat="employees in employees | orderBy:sapxepdulieu:reserve ">r
+                            <td>{{employees.name | uppercase}}</td>
+                            <td>{{employees.birthDate | date}}</td>
+                            <td>{{employees.salary | currency}}</td>
+                            <td>{{employees.gender | uppercase}}</td>
+                            <td>{{employees.myFilter | myfil}}</td>
+                        </tbody>
+                    </table>
+                </div>
+            </body>
+            </html>
+

@@ -1,0 +1,112 @@
+***** TA TÌM HIỂU CÁCH SẮP XẾP DỮ LIỆU TRONG ANGULARJS*****
+
+- Để sắp xếp dữ liệu trong Angularjs ta sử dụng filter orderBy
+ + cú pháp:
+       {{expression | orderBy: expression_name: reserve}}
+
+       ++ trong đó:
+          > expression: biểu thức xấy dựng để binding dữ liệu,( này có thể là tên biến, trong các function hay controller
+          do người dùng viết)
+          > oderBy: filer mặc định sắp xếp dữ liệu
+          > expression_name: tên thuộc tính chiều hướng cần orderBy ( tên do người dùng đặt)
+          > reserve: thuật ngữ sắp xếp theo chiều tăng dần hoặc giảm dần.(+, -)
+
+
+    ++ ví dụ:
+        ng-repeat="employee in employees | oderBy: '+salary'"
+
+>>> dùng thuộc tính orderBy (kiểu set cứng):
+   -code html( chèn thuộc tính orderBy ngay trong html)
+      <body ng-app="myModule">
+            <div ng-controller="myController">
+                  <table class="table" >
+                        <tr>
+                        <td>name:</td>
+                        <td>date of birth</td>
+                        <td>salary</td>
+                        <td>Gender</td>
+                        <!--chèn thêm cột filter tự định nghĩa-->
+                        <td>myFielter</td>
+                        </tr>
+                        <tr ng-repeat="employees in employees | orderBy:'name':true">
+                        <td>{{employees.name | uppercase}}</td>
+                        <td>{{employees.birthDate | date:"dd/MM/yyyy"}}</td>
+                        <td>{{employees.salary | currency:"$"}}</td>
+                        <td>{{employees.gender | lowercase}}</td>
+                        <td>{{employees.myFilter | myFilter}}</td>
+                        </tr>
+                  </table>
+            </div>
+      </body>
+
+
+
+
+
+>>>> cách sắp xếp dữ liệu theo kiểu set động( dạng dropdown thanh select trong html):
+
+  + js:
+       // bài này ta sẽ tìm hiểu về sắp xếp dữ liệu trong angularjs
+
+                  var myApp = angular.module('myModule',[]);
+
+                  myApp.controller('myController',['$scope', function($scope){
+                  var employees =[
+                        {name: 'tuấn', birthDate: '22/09/2022', salary:4500000, gender:'MALE', myFilter:true},
+                        {name: 'Hùng', birthDate: '10/09/2022', salary:500000, gender:'MALE', myFilter:true},
+                        {name: 'Vi', birthDate: '23/05/2022', salary:2500000, gender:'FEMALE', myFilter:false},
+                        {name: 'Long', birthDate: '02/01/2022', salary:500000, gender:'MALE', myFilter:false},
+                        {name: 'An', birthDate: '22/11/2022', salary:1000000, gender:'FEMALE', myFilter:true}
+                  ];
+                  $scope.employees=employees;
+                  $scope.set_orderBy='name';
+                  }]);
+
+                  // filter tự xây dựng.
+                  myApp.filter('myFilter', function(){
+                  return function(input){
+                        if(input==true)
+                              return 'kích hoạt';
+                        else
+                              return 'khóa';
+                  }
+                  })
+
+  + html:
+      
+             <div ng-controller="myController">
+                  show: <select ng-model="set_orderBy">
+                  <!--phần option biểu thị giá trị dương, sắp xếp theo chiều giá trị tăng-->
+                        <option value="name">name (increase)</option>
+                        <option value="birthDate">day of birth(increase)</option>
+                        <option value="salary">salary (increase)</option>
+                  <!--phần option biểu thị giá trị âm, sắp xếp theo chiều giảm-->
+                        <option value="-name">name (decrease)</option>
+                        <option value="-birthDate">day of birth(decrease)</option>
+                        <option value="-salary">salary (decrease)</option>
+                  </select>
+                  <table class="table" >
+                        <tr>
+                        <td>name:</td>
+                        <td>date of birth</td>
+                        <td>salary</td>
+                        <td>Gender</td>
+                        <!--chèn thêm cột filter tự định nghĩa-->
+                        <td>myFielter</td>
+                        </tr>
+                        <tr ng-repeat="employees in employees | orderBy:set_orderBy ">
+                        <td>{{employees.name | uppercase}}</td>
+                        <td>{{employees.birthDate | date:"dd/MM/yyyy"}}</td>
+                        <td>{{employees.salary | currency:"$"}}</td>
+                        <td>{{employees.gender | lowercase}}</td>
+                        <td>{{employees.myFilter | myFilter}}</td>
+                        </tr>
+                  </table>
+            </div>
+            
+
+   
+
+
+
+        
